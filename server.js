@@ -16,6 +16,7 @@ connectDB();
 const app = express();
 
 // Import routes files
+const auth = require("./Route/auth");
 const users = require("./Route/users");
 
 // Configure bodyparser to handle post requests
@@ -35,7 +36,8 @@ if(process.env.NODE_ENV === 'development'){
 }
 
 // Mount API routes in the App
-app.use('/api/v1/users', users);
+app.use('/api/auth', auth);
+app.use('/api/users', users);
 app.use(errorHandler);
 
 // Launch app to listen to specified port
