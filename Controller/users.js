@@ -15,17 +15,13 @@ exports.getUsers = asyncHandler(async (req, res, next) => {
 exports.getUser = asyncHandler(async (req, res, next) => {
     const user = await User.findById(req.params.id, (err, data) => {
         if (!data) {
-            res.status(404).json({
-                status: "error",
-                message: 'User not found'
-            })
-        } else {
-            res.status(200).json({
-                status: "success",
-                message: 'User fetched successfully',
-                data: user
-            })
+            return next(new ErrorResponse("User not foud!", 404));
         }
+        res.status(200).json({
+            status: "success",
+            message: 'User fetched successfully',
+            data: user
+        })
     })
 });
 
