@@ -6,7 +6,8 @@ const User = require('../Model/User');
 
 exports.register = asyncHandler(async (req, res, next) => {
     const {
-        name,
+        firstName,
+        lastName,
         email,
         phone,
         password,
@@ -15,7 +16,8 @@ exports.register = asyncHandler(async (req, res, next) => {
 
     // Create user
     const user = await User.create({
-        name,
+        firstName,
+        lastName,
         email,
         phone,
         password,
