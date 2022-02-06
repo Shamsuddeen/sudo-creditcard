@@ -26,6 +26,28 @@ const cardSchema = new mongoose.Schema({
         required: false,
         default: 0
     },
+    status: {
+        type: Boolean,
+        required: true,
+        default: true
+    },
+    channels: [{
+        atm: {
+            type: Boolean,
+            required: true,
+            default: true
+        },
+        pos: {
+            type: Boolean,
+            required: true,
+            default: true
+        },
+        online: {
+            type: Boolean,
+            required: true,
+            default: true
+        }
+    }],
     create_date: {
         type: Date,
         default: Date.now
