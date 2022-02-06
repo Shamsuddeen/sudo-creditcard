@@ -4,6 +4,7 @@ const bodyParser    = require('body-parser');
 const mongoose      = require('mongoose');
 const morgan        = require('morgan');
 const cookieParser = require('cookie-parser');
+const errorHandler  = require('./Middleware/error');
 
 // Load ENV vars
 dotenv.config({ path: './config/config.env'});
@@ -13,6 +14,9 @@ const connectDB = require('./config/db');
 // Connect to database
 connectDB();
 const app = express();
+
+// Import routes files
+const users = require("./Route/users");
 
 // Configure bodyparser to handle post requests
 app.use(bodyParser.urlencoded({
@@ -29,6 +33,10 @@ app.get('/', (req, res) => res.send('Hello from Bitako.Cards'));
 if(process.env.NODE_ENV === 'development'){
     app.use(morgan('dev'));
 }
+
+// Mount API routes in the App
+app.use('/api/v1/users', users);
+app.use(errorHandler);
 
 // Launch app to listen to specified port
 app.listen(port, function () {
