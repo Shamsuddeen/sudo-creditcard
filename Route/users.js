@@ -2,8 +2,7 @@
 const express = require('express');
 const {
     getUsers,
-    getUser,
-    createUser
+    getUser
 } = require('../Controller/users');
 
 const User = require('../Model/User');
@@ -18,9 +17,8 @@ const {
 router
     .route('/')
     .get(protect, authorize('admin'), advancedResults(User), getUsers)
-    .post(createUser);
 router
     .route('/:id')
-    .get(getUser);
+    .get(protect, getUser);
 
 module.exports = router;
