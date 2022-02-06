@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const cardSchema = new mongoose.Schema({
     user: {
-        type: mongoose.Schema.ObjectId(),
+        type: mongoose.Schema.ObjectId,
         ref: 'User',
         required: true
     },
