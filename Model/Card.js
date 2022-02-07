@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const cardSchema = new mongoose.Schema({
     user: {
-        type: mongoose.Schema.ObjectId,
+        type: mongoose.ObjectId,
         ref: 'User',
         required: true
     },
@@ -11,11 +11,18 @@ const cardSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
-    accountId: {
+    customerId: {
         type: String,
         required: true,
         unique: true
     },
+    pan: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    expiry: String,
+    brand: String,
     balance: {
         type: Number,
         required: false,
@@ -26,7 +33,7 @@ const cardSchema = new mongoose.Schema({
         required: false,
         default: 0
     },
-    status: {
+    active: {
         type: Boolean,
         required: true,
         default: true
@@ -42,7 +49,12 @@ const cardSchema = new mongoose.Schema({
             required: true,
             default: true
         },
-        online: {
+        web: {
+            type: Boolean,
+            required: true,
+            default: true
+        },
+        mobile: {
             type: Boolean,
             required: true,
             default: true
