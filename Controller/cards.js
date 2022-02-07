@@ -60,25 +60,43 @@ exports.createCard = asyncHandler(async (req, res, next) => {
         return next(new ErrorResponse("Unable to Create customer", 400));
     }
 
+    // Map Card to Customer
     const card = await sendRequest('/cards', 'post', {
         customerId: customer.data._id,
         type: "virtual",
+        number: "5061000000000000001",
         currency: "NGN",
         status: "active",
-        brand: "Verve"
+        brand: "Verve",
+        metadata: {},
+        spendingControls: {
+            channels: {
+                atm: true,
+                pos: true,
+                web:  true,
+                mobile: true
+            },
+            allowedCategories: [],
+            blockedCategories: [],
+            spendingLimits: [{
+                amount: 100000,
+                interval: "daily"
+            }]
+        }
     });
     console.log(card);
     if (card.statusCode != 200) {
         return next(new ErrorResponse("Request Error, Unable to create card", 400));
     }
 
+    // Save Card to DB
     const result = await Card.create({
-        user: user._id,
-        cardId: card._id,
-        customerId: customer._id,
-        pan: card.maskedPan,
-        expiry: card.expiryMonth + '/' + card.expiryYear,
-        brand: card.brand,
+        user: req.body.user,
+        cardId: card.data._id,
+        customerId: customer.data._id,
+        pan: card.data.maskedPan,
+        expiry: card.data.expiryMonth + '/' + card.data.expiryYear,
+        brand: card.data.brand,
         channels: {
             atm: false,
             pos: false,
