@@ -3,7 +3,7 @@ const express = require('express');
 const {
     getUsers,
     getUser,
-    updateUser,
+    updateUser
 } = require('../Controller/users');
 
 const User = require('../Model/User');
@@ -22,5 +22,4 @@ router
     .route('/:id')
     .get(protect, getUser)
     .put(protect, authorize('admin'), updateUser);
-
 module.exports = router;
