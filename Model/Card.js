@@ -28,10 +28,15 @@ const cardSchema = new mongoose.Schema({
         required: false,
         default: 0
     },
-    maxCredit: {
+    usedCredit: {
         type: Number,
         required: false,
         default: 0
+    },
+    maxCredit: {
+        type: Number,
+        required: false,
+        default: 100000
     },
     active: {
         type: Boolean,
