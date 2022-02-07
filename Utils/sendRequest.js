@@ -5,8 +5,6 @@ const axios = require('axios');
 const sendRequest = async (url, method, data, token) => {
     var base_uri = "https://api.sandbox.sudo.cards";
     var headers = {
-        'Accept': 'application/json', 
-        'Content-Type': 'application/json', 
         'Authorization': 'Bearer ' + process.env.SUDO_KEY
     }
 
