@@ -7,25 +7,14 @@ exports.getUsers = asyncHandler(async (req, res, next) => {
 });
 
 exports.getUser = asyncHandler(async (req, res, next) => {
-    const user = await User.findById(req.params.id, (err, data) => {
-        if (!data) {
+    const user = await User.findById(req.params.id, (err, result) => {
+        if (!result) {
             return next(new ErrorResponse("User not foud!", 404));
-        } else {
-            res.status(200).json({
-                success: true,
-                status: "success",
-                data: data
-            })
         }
+        res.status(200).json({
+            success: true,
+            status: "success",
+            data: result
+        })
     })
 });
-
-// exports.createUser = asyncHandler(async (req, res, next) => {
-//     const user = await User.create(req.body);
-
-//     res.status(201).json({
-//         status: "success",
-//         message: 'User created successfully',
-//         data: user
-//     });
-// });
