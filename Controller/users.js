@@ -18,3 +18,16 @@ exports.getUser = asyncHandler(async (req, res, next) => {
         })
     })
 });
+
+exports.updateUser = asyncHandler(async (req, res, next) => {
+    const user = await User.findByIdAndUpdate(req.params.id, req.body, {
+        new: true,
+        runValidators: true
+    });
+
+    res.status(200).json({
+        success: true,
+        status: "success",
+        data: user
+    });
+});
