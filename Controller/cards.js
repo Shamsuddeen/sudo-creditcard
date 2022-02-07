@@ -111,3 +111,16 @@ exports.createCard = asyncHandler(async (req, res, next) => {
         data: result
     });
 });
+
+exports.updateCard = asyncHandler(async (req, res, next) => {
+    const user = await Card.findByIdAndUpdate(req.params.id, req.body, {
+        new: true,
+        runValidators: true
+    });
+
+    res.status(200).json({
+        success: true,
+        status: "success",
+        data: user
+    });
+});
