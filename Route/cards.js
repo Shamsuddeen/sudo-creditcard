@@ -3,7 +3,8 @@ const express = require('express');
 const {
     getCards,
     getCard,
-    createCard
+    createCard,
+    updateCard
 } = require('../Controller/cards');
 const Card = require('../Model/Card');
 const router = express.Router({ mergeParams: true });
@@ -21,6 +22,7 @@ router
     .post(protect, authorize('admin'), createCard);
 router
     .route('/:id')
-    .get(getCard);
+    .get(protect, authorize('admin'), getCard)
+    .get(protect, authorize('admin'), updateCard);
 
 module.exports = router;
