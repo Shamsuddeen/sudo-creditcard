@@ -17,8 +17,8 @@ exports.getCards = asyncHandler(async (req, res, next) => {
 exports.getCard = asyncHandler(async (req, res, next) => {
     const card = await Card.findById(req.params.id);
 
-    if (!card) {
-        return next(new ErrorResponse("Card not foud!", 404));
+    if (!card._id) {
+        return next(new ErrorResponse("Card not found!", 404));
     }
     res.status(200).json({
         status: "success",
@@ -28,16 +28,23 @@ exports.getCard = asyncHandler(async (req, res, next) => {
 });
 
 exports.createCard = asyncHandler(async (req, res, next) => {
-    const name = req.body.firstName + ' ' + req.body.lastName
+    // Check if user exists
+    const user = await User.findById(req.body.user);
+    if (!user._id) {
+        return next(new ErrorResponse("User not found!", 404));
+    }
+    // console.log(user);
+    const name = user.firstName + ' ' + user.lastName
+    // Create Card Holder
     const customer = await sendRequest('/customers', 'post', {
         type: 'individual',
         name: name,
-        phoneNumber: req.body.phone,
-        emailAddress: req.body.email,
+        phoneNumber: user.phone,
+        emailAddress: user.email,
         status: "active",
         individual: {
-            firstName: req.body.firstName,
-            lastName: req.body.lastName
+            firstName: user.firstName,
+            lastName: user.lastName
         },
         billingAddress: {
             line1: "4 Barnawa Close",
@@ -48,12 +55,41 @@ exports.createCard = asyncHandler(async (req, res, next) => {
             postalCode: "800001"
         }
     });
-    res.send(customer);
-    // const card = await Card.create(req.body);
+    // console.log(customer);
+    if (customer.statusCode != 200) {
+        return next(new ErrorResponse("Unable to Create customer", 400));
+    }
 
-    // res.status(201).json({
-    //     status: "success",
-    //     message: 'Card created successfully',
-    //     data: card
-    // });
+    const card = await sendRequest('/cards', 'post', {
+        customerId: customer.data._id,
+        type: "virtual",
+        currency: "NGN",
+        status: "active",
+        brand: "Verve"
+    });
+    console.log(card);
+    if (card.statusCode != 200) {
+        return next(new ErrorResponse("Request Error, Unable to create card", 400));
+    }
+
+    const result = await Card.create({
+        user: user._id,
+        cardId: card._id,
+        customerId: customer._id,
+        pan: card.maskedPan,
+        expiry: card.expiryMonth + '/' + card.expiryYear,
+        brand: card.brand,
+        channels: {
+            atm: false,
+            pos: false,
+            web: true,
+            mobile: true
+        }
+    });
+
+    res.status(201).json({
+        status: "success",
+        message: 'Card created successfully',
+        data: result
+    });
 });
