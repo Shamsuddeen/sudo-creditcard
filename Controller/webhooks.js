@@ -6,18 +6,20 @@ const Card = require('../Model/Card');
 
 exports.cardAuthorization = asyncHandler(async (req, res, next) => {
     const card = await Card.findOne({
-        cardId: req.data.card._id
+        cardId: req.body.data.card._id
     });
 
     if (!card._id) {
         return next(new ErrorResponse("Card not found!", 404));
     }
-
-    if (req.type == "authorization.request") {
-        const amount = req.data.amount;
-        const channel = req.data.transactionMetadata.channel;
+    // console.log('====================================');
+    // console.log(req.body.data);
+    // console.log('====================================');
+    if (req.body.type == "authorization.request") {
+        const amount = req.body.data.amount;
+        const channel = req.body.data.transactionMetadata.channel;
         const totalCredit = card.usedCredit + amount;
-        const newBalance = card.balance -totalCredit;
+        const newBalance = card.balance - totalCredit;
         /*
          Check if the card status
          If the card statcus is active
@@ -35,7 +37,7 @@ exports.cardAuthorization = asyncHandler(async (req, res, next) => {
                             balance: newBalance
                         };
                         Card.findOneAndUpdate({
-                            cardId: req.data.card._id
+                            cardId: req.body.data.card._id
                         }, updateFields);
 
                         res.json({
