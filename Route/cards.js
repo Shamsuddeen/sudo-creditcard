@@ -23,6 +23,6 @@ router
 router
     .route('/:id')
     .get(protect, authorize('admin'), getCard)
-    .get(protect, authorize('admin'), updateCard);
+    .put(protect, authorize('admin'), updateCard);
 
 module.exports = router;
