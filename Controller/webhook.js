@@ -1,6 +1,5 @@
 const ErrorResponse = require('../Utils/errorResponse');
 const asyncHandler = require('../Middleware/async');
-const sendRequest = require('../Utils/sendRequest');
 const User = require('../Model/User');
 const Card = require('../Model/Card');
 
