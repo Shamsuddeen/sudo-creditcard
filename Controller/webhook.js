@@ -32,11 +32,11 @@ exports.cardAuthorization = asyncHandler(async (req, res, next) => {
                     if (totalCredit <= card.maxCredit) {
                         // Updated Card and Send response
                         const updateFields = {
-                            usedCredit: totalCredit
+                            usedCredit: totalCredit,
+                            balance: newBalance
                         };
                         await Card.findOneAndUpdate({
-                            cardId: req.data.card._id,
-                            balance: newBalance
+                            cardId: req.data.card._id
                         }, updateFields);
 
                         res.json({
