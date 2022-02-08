@@ -73,7 +73,7 @@ exports.createCard = asyncHandler(async (req, res, next) => {
             channels: {
                 atm: true,
                 pos: true,
-                web:  true,
+                web: true,
                 mobile: true
             },
             allowedCategories: [],
