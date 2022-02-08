@@ -113,7 +113,7 @@ exports.createCard = asyncHandler(async (req, res, next) => {
 });
 
 exports.updateCard = asyncHandler(async (req, res, next) => {
-    const user = await Card.findByIdAndUpdate(req.params.id, req.body, {
+    const card = await Card.findByIdAndUpdate(req.params.id, req.body, {
         new: true,
         runValidators: true
     });
@@ -121,6 +121,6 @@ exports.updateCard = asyncHandler(async (req, res, next) => {
     res.status(200).json({
         success: true,
         status: "success",
-        data: user
+        data: card
     });
 });

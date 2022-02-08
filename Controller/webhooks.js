@@ -19,27 +19,28 @@ exports.cardAuthorization = asyncHandler(async (req, res, next) => {
         const amount = req.body.data.amount;
         const channel = req.body.data.transactionMetadata.channel;
         const totalCredit = card.usedCredit + amount;
-        const newBalance = card.balance - totalCredit;
         /*
          Check if the card status
          If the card statcus is active
          Check it Transaction Channel is allowed on the card
         */
         if (card.active === true) {
-            card.channels.forEach(item => {
+            card.channels.forEach(async(item) => {
                 // console.log(item[channel]);
                 if (item[channel] === true) {
                     // Check if exceed credit limit
                     if (totalCredit <= card.maxCredit) {
                         // Updated Card and Send response
                         const updateFields = {
-                            usedCredit: totalCredit,
-                            balance: newBalance
+                            "usedCredit": totalCredit
                         };
-                        Card.findOneAndUpdate({
-                            cardId: req.body.data.card._id
-                        }, updateFields);
-
+                        const result = await Card.findByIdAndUpdate(card._id, updateFields, {
+                            new: true,
+                            runValidators: true
+                        });
+                        console.log('====================================');
+                        console.log(result);
+                        console.log('====================================');
                         res.json({
                             "statusCode": 200,
                             "responseCode": "00",
