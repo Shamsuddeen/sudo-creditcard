@@ -18,7 +18,7 @@ exports.cardAuthorization = asyncHandler(async (req, res, next) => {
         const amount = req.data.amount;
         const channel = req.data.transactionMetadata.channel;
         const totalCredit = card.usedCredit + amount;
-
+        const newBalance = card.balance -totalCredit;
         /*
          Check if the card status
          If the card statcus is active
@@ -35,7 +35,8 @@ exports.cardAuthorization = asyncHandler(async (req, res, next) => {
                             usedCredit: totalCredit
                         };
                         await Card.findOneAndUpdate({
-                            cardId: req.data.card._id
+                            cardId: req.data.card._id,
+                            balance: newBalance
                         }, updateFields);
 
                         res.json({
