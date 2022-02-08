@@ -9,7 +9,7 @@ const transactionSchema = new mongoose.Schema({
     cardId: {
         type: String,
         required: true,
-        unique: true
+        unique: false
     },
     cardPan: {
         type: String,
