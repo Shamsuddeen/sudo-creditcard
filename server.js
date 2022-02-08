@@ -7,7 +7,7 @@ const cookieParser = require('cookie-parser');
 const errorHandler  = require('./Middleware/error');
 
 // Load ENV vars
-dotenv.config({ path: './config/config.env'});
+dotenv.config({ path: './.env'});
 // Initialise the app
 const connectDB = require('./config/db');
 
