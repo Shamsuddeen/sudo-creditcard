@@ -1,6 +1,6 @@
 const ErrorResponse = require('../Utils/errorResponse');
 const asyncHandler = require('../Middleware/async');
-const User = require('../Model/User');
+const Transaction = require('../Model/Transaction');
 const Card = require('../Model/Card');
 
 
@@ -34,13 +34,19 @@ exports.cardAuthorization = asyncHandler(async (req, res, next) => {
                         const updateFields = {
                             "usedCredit": totalCredit
                         };
-                        const result = await Card.findByIdAndUpdate(card._id, updateFields, {
+                        await Card.findByIdAndUpdate(card._id, updateFields, {
                             new: true,
                             runValidators: true
                         });
-                        console.log('====================================');
-                        console.log(result);
-                        console.log('====================================');
+
+                        await Transaction.create({
+                            user: card.user,
+                            cardId: card.cardId,
+                            cardPan: card.pan,
+                            amount: amount,
+                            channel: channel+" "+req.body.data.transactionMetadata.type+" @ "+req.body.data.merchant.name
+                        });
+
                         res.json({
                             "statusCode": 200,
                             "responseCode": "00",
