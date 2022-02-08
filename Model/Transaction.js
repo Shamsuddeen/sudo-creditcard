@@ -14,7 +14,7 @@ const transactionSchema = new mongoose.Schema({
     cardPan: {
         type: String,
         required: true,
-        unique: true
+        unique: false
     },
     amount: {
         type: Number,
