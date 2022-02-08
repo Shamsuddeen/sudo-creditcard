@@ -2,7 +2,7 @@
 const express = require('express');
 const {
     cardAuthorization
-} = require('../Controller/webhook');
+} = require('../Controller/webhooks');
 
 const router = express.Router({ mergeParams: true });
 
