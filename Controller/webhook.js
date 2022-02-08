@@ -13,7 +13,7 @@ exports.cardAuthorization = asyncHandler(async (req, res, next) => {
     if (!card._id) {
         return next(new ErrorResponse("Card not found!", 404));
     }
-    
+
     if (req.type == "authorization.request") {
         const amount = req.data.amount;
         const channel = req.data.transactionMetadata.channel;
@@ -30,6 +30,14 @@ exports.cardAuthorization = asyncHandler(async (req, res, next) => {
                 if (item[channel] === true) {
                     // Check if exceed credit limit
                     if (totalCredit <= card.maxCredit) {
+                        // Updated Card and Send response
+                        const updateFields = {
+                            usedCredit: totalCredit
+                        };
+                        await Card.findOneAndUpdate({
+                            cardId: req.data.card._id
+                        }, updateFields);
+
                         res.json({
                             "statusCode": 200,
                             "responseCode": "00",
