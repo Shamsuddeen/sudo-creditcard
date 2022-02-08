@@ -34,7 +34,7 @@ exports.cardAuthorization = asyncHandler(async (req, res, next) => {
                             usedCredit: totalCredit,
                             balance: newBalance
                         };
-                        await Card.findOneAndUpdate({
+                        Card.findOneAndUpdate({
                             cardId: req.data.card._id
                         }, updateFields);
 
