@@ -35,7 +35,7 @@ exports.createCard = asyncHandler(async (req, res, next) => {
     }
     // console.log(user);
     const name = user.firstName + ' ' + user.lastName
-    // Create Card Holder
+    // // Create Card Holder
     const customer = await sendRequest('/customers', 'post', {
         type: 'individual',
         name: name,
@@ -59,6 +59,17 @@ exports.createCard = asyncHandler(async (req, res, next) => {
     if (customer.statusCode != 200) {
         return next(new ErrorResponse("Unable to Create customer", 400));
     }
+    const update = await sendRequest('/customers/'+customer.data._id, 'put', {
+        type: 'individual',
+        name: name,
+        phoneNumber: user.phone,
+        emailAddress: user.email,
+        status: "active",
+        individual: {
+            firstName: user.firstName,
+            lastName: user.lastName
+        }
+    });
 
     // Map Card to Customer
     const card = await sendRequest('/cards', 'post', {
