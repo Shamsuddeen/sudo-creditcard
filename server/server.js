@@ -33,10 +33,10 @@ app.use(cookieParser());
 app.use(cors());
 
 var port = process.env.PORT || 5000;
-app.get('/', (req, res) => res.send('Hello from Bitako.Cards'));
 
 // Development logging
 if(process.env.NODE_ENV === 'development'){
+    app.get('/', (req, res) => res.send('Hello from Bitako.Cards'));
     app.use(morgan('dev'));
 }
 
