@@ -21,6 +21,7 @@ const auth = require("./Route/auth");
 const users = require("./Route/users");
 const cards = require("./Route/cards");
 const webhooks = require("./Route/webhooks");
+const transactions = require("./Route/transactions");
 
 // Configure bodyparser to handle post requests
 app.use(bodyParser.urlencoded({
@@ -44,6 +45,7 @@ app.use('/api/auth', auth);
 app.use('/api/users', users);
 app.use('/api/cards', cards);
 app.use('/api/webhooks', webhooks);
+app.use('/api/transactions', transactions);
 app.use(errorHandler);
 
 // Launch app to listen to specified port
