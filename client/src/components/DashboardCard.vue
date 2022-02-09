@@ -15,6 +15,12 @@
 <script>
 export default {
   name: "DashboardCard",
+  async created() {
+    const token = localStorage.getItem("user");
+    if(!token){
+      window.location.href="./";
+    }
+  }
 };
 </script>
 
