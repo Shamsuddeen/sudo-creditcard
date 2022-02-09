@@ -40,6 +40,13 @@ if(process.env.NODE_ENV === 'development'){
     app.use(morgan('dev'));
 }
 
+// Production
+if(process.env.NODE_ENV === 'production'){
+    app.use(express.static(__dirname + '/public/'));
+    // handle spa
+    apt.get(/.*/, (req, res) => res.sendFile(__dirname + '/public/index.html'));
+}
+
 // Mount API routes in the App
 app.use('/api/auth', auth);
 app.use('/api/users', users);

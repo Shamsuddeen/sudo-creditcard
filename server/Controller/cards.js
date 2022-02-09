@@ -27,10 +27,39 @@ exports.getCard = asyncHandler(async (req, res, next) => {
     })
 });
 
+exports.simulateTransaction = asyncHandler(async (req, res, next) => {
+    const card = await Card.findById(req.params.id);
+
+    if (!card._id) {
+        return next(new ErrorResponse("Card not found!", 404));
+    }
+
+    const simulate = await sendRequest('/cards/' + card.cardId + '/simulate/authorization', 'post', {
+        channel: req.body.channel,
+        type: req.body.type,
+        amount: req.body.amount,
+        currency: "NGN",
+        merchant: {
+            category: "7399",
+            merchantId: "000000001",
+            name: "Bitako Inc",
+            city: "Zing",
+            state: "TR",
+            country: "NG"
+        }
+    });
+    res.send(simulate);
+    // res.status(200).json({
+    //     status: "success",
+    //     message: 'Card fetched successfully',
+    //     data: card
+    // })
+});
+
 exports.getUserCard = asyncHandler(async (req, res, next) => {
     const card = await Card.findOne({ user: req.params.user });
 
-    if (!card._id) {
+    if (card == null) {
         return next(new ErrorResponse("Card not found!", 404));
     }
     res.status(200).json({
@@ -83,10 +112,13 @@ exports.createCard = asyncHandler(async (req, res, next) => {
             lastName: user.lastName
         }
     });
+    console.log('====================================');
+    console.log(update);
+    console.log('====================================');
 
     // Map Card to Customer
     const card = await sendRequest('/cards', 'post', {
-        customerId: customer.data._id,
+        customerId: update.data._id,
         type: "virtual",
         number: "5061000000000000001",
         currency: "NGN",
@@ -117,7 +149,7 @@ exports.createCard = asyncHandler(async (req, res, next) => {
     const result = await Card.create({
         user: req.body.user,
         cardId: card.data._id,
-        customerId: customer.data._id,
+        customerId: update.data._id,
         pan: card.data.maskedPan,
         expiry: card.data.expiryMonth + '/' + card.data.expiryYear,
         brand: card.data.brand,

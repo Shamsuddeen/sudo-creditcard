@@ -5,6 +5,7 @@ const {
     getCard,
     getUserCard,
     createCard,
+    simulateTransaction,
     updateCard
 } = require('../Controller/cards');
 const Card = require('../Model/Card');
@@ -28,5 +29,8 @@ router
 router
     .route('/user/:user')
     .get(protect, authorize('admin'), getUserCard);
+router
+    .route('/simulate/:id')
+    .post(protect, authorize('admin'), simulateTransaction);
 
 module.exports = router;
