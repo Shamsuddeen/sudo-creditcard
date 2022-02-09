@@ -27,6 +27,19 @@ exports.getCard = asyncHandler(async (req, res, next) => {
     })
 });
 
+exports.getUserCard = asyncHandler(async (req, res, next) => {
+    const card = await Card.findOne({ user: req.params.user });
+
+    if (!card._id) {
+        return next(new ErrorResponse("Card not found!", 404));
+    }
+    res.status(200).json({
+        status: "success",
+        message: 'Card fetched successfully',
+        data: card
+    })
+});
+
 exports.createCard = asyncHandler(async (req, res, next) => {
     // Check if user exists
     const user = await User.findById(req.body.user);
