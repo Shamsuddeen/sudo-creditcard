@@ -24,7 +24,7 @@
         ></b-form-input>
       </b-form-group>
 
-      <b-form-group id="input-group-2" label="Your Name:" label-for="input-2">
+      <b-form-group id="input-group-2" label="Your Password:" label-for="input-2">
         <b-form-input
           id="input-2"
           v-model="form.password"
@@ -66,8 +66,8 @@
             // console.log(response.data);
           this.auth = response.data;
           // this.auth.push(response.data);
-          localStorage.setItem('user', JSON.stringify(response.data.token));
-          alert("You are logged in")
+          localStorage.setItem('user', response.data.token);
+          // alert("You are logged in")
           window.location.href="./dashboard";
         })
         .catch(e => {
