@@ -4,6 +4,7 @@ const bodyParser    = require('body-parser');
 const mongoose      = require('mongoose');
 const cors          = require('cors');
 const morgan        = require('morgan');
+const path = require('path');
 const cookieParser = require('cookie-parser');
 const errorHandler  = require('./Middleware/error');
 
@@ -42,9 +43,14 @@ if(process.env.NODE_ENV === 'development'){
 
 // Production
 if(process.env.NODE_ENV === 'production'){
-    app.use(express.static(__dirname + '/public/'));
-    // handle spa
-    app.get(/.*/, (req, res) => res.sendFile(__dirname + '/public/index.html'));
+    // serve static assets normally
+    app.use(express.static(__dirname + '/public'));
+
+    // handle every other route with index.html, which will contain
+    // a script tag to your application's JavaScript file(s).
+    app.get('*', function (request, response) {
+      response.sendFile(path.resolve(__dirname, 'index.html'));
+    });
 }
 
 // Mount API routes in the App
