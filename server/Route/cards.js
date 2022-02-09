@@ -3,6 +3,7 @@ const express = require('express');
 const {
     getCards,
     getCard,
+    getUserCard,
     createCard,
     updateCard
 } = require('../Controller/cards');
@@ -24,5 +25,8 @@ router
     .route('/:id')
     .get(protect, authorize('admin'), getCard)
     .put(protect, authorize('admin'), updateCard);
+router
+    .route('/user/:user')
+    .get(protect, authorize('admin'), getUserCard);
 
 module.exports = router;
