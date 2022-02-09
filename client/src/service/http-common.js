@@ -2,7 +2,7 @@ import axios from "axios";
 import NProgress from "nprogress";
 
 export const HTTP = axios.create({
-  baseURL: `http://localhost:5000/api`,
+  baseURL: `/api`,
   headers: {
     Authorization:
       "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjIwMDBkNjI3YjIwM2UyYWY4NGYwYjBiIiwiaWF0IjoxNjQ0MTcwNTk0fQ.pyWOVV720lPpoZEubc1PvixoLAzyXxzyL1oGmRq841U",

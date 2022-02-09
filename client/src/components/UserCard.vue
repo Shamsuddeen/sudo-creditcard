@@ -6,6 +6,14 @@
                 <h6 class="mb-0">{{ card.brand }}</h6>
             </template>
             <b-card-text>{{ card.pan }}</b-card-text>
+            <div v-for="channel in card.channels" :key="channel">
+                <b-button-group size="sm">
+                    <b-button variant="primary">POS: {{ channel.pos }}</b-button>
+                    <b-button variant="secondary">Mobile: {{ channel.mobile }}</b-button>
+                    <b-button variant="success">ATM: {{ channel.atm }}</b-button>
+                    <b-button variant="info">WEB: {{ channel.web }}</b-button>
+                </b-button-group>
+            </div><br>
             <b-button href="#" variant="primary">Credit Used: {{ card.usedCredit }} | Max Credit: {{ card.maxCredit }}</b-button>
             <template #footer>
                 <em>Expiry: {{ card.expiry }}</em>
