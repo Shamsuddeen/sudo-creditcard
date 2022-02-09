@@ -57,6 +57,26 @@ exports.login = asyncHandler(async (req, res, next) => {
     sendTokenResponse(user, 200, res);
 });
 
+exports.getMe = asyncHandler(async (req, res, next) => {
+    let token = req.body.token;
+    try {
+        // Verify token
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+        const user = await User.findById(decoded.user_id);
+
+        res.status(200).json({
+            success: true,
+            status: 'success',
+            data: user
+        });
+        next();
+    } catch (err) {
+        return next(new ErrorResponse('Not authorized to access this route', 401));
+    }
+    // const user = await User.findById(req.user.user_id);
+});
+
 exports.logout = asyncHandler(async (req, res, next) => {
     res.cookie('token', 'none', {
         expires: new Date(Date.now() + 10 * 1000),
