@@ -2,6 +2,7 @@ const express       = require('express');
 const dotenv        = require('dotenv');
 const bodyParser    = require('body-parser');
 const mongoose      = require('mongoose');
+const cors          = require('cors');
 const morgan        = require('morgan');
 const cookieParser = require('cookie-parser');
 const errorHandler  = require('./Middleware/error');
@@ -28,6 +29,7 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 // Cookie parser
 app.use(cookieParser());
+app.use(cors());
 
 var port = process.env.PORT || 5000;
 app.get('/', (req, res) => res.send('Hello from Bitako.Cards'));
