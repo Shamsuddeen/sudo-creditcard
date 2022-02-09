@@ -8,8 +8,7 @@ const cardSchema = new mongoose.Schema({
     },
     cardId: {
         type: String,
-        required: true,
-        unique: true
+        required: true
     },
     customerId: {
         type: String,
