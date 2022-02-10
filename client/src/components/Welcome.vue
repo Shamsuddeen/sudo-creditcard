@@ -4,14 +4,15 @@
       <template #header>Bitako.Cards</template>
 
       <template #lead>
-        A Credit Card Application developed with MongoDB, Express, Node and Vue JS. Cards are issued by <a href="https://sudo.africa">Sudo Africa</a>
+        A Credit Card Application developed with MongoDB, Express, Node and Vue
+        JS. Cards are issued by <a href="https://sudo.africa">Sudo Africa</a>
       </template>
 
-      <hr class="my-4">
+      <hr class="my-4" />
 
       <p>
-        It uses utility classes for typography and spacing to space content out within the larger
-        container.
+        It uses utility classes for typography and spacing to space content out
+        within the larger container.
       </p>
 
       <router-link class="btn btn-primary" to="/login">Login</router-link>

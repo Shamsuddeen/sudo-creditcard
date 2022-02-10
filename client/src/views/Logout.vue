@@ -4,12 +4,12 @@
   </div>
 </template>
 <script>
-  export default {
-    name: "Logout",
-    async created() {
-      await localStorage.removeItem("user");
-      // window.location.href="./";
-        this.$router.push('/')
-    }
-  };
+export default {
+  name: "Logout",
+  async created() {
+    await localStorage.removeItem("user");
+    // window.location.href="./";
+    this.$router.push("/");
+  },
+};
 </script>
