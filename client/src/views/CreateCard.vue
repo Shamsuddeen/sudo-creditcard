@@ -32,7 +32,8 @@
             .then(response => {
                 // console.log(response.data);
                 this.card = response.data.data;
-                window.location.href="./dashboard";
+                // window.location.href="./dashboard";
+                this.$router.push('/dashboard')
             })
             .catch(e => {
                 this.errors.push(e)

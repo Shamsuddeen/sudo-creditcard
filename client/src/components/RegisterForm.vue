@@ -101,7 +101,8 @@
           // this.auth.push(response.data);
           localStorage.setItem('user', response.data.token);
           // alert("You are logged in")
-          window.location.href="./card";
+          // window.location.href="./card";
+          this.$router.push('/card')
         })
         .catch(e => {
           this.errors.push(e)

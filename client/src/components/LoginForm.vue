@@ -56,6 +56,9 @@
       }
     },
     methods: {
+      goToDashboard() {
+        this.$router.push('/dashboard')
+      },
       onSubmit(event) {
         event.preventDefault()
         // alert(JSON.stringify(this.form))
@@ -68,7 +71,9 @@
           // this.auth.push(response.data);
           localStorage.setItem('user', response.data.token);
           // alert("You are logged in")
-          window.location.href="./dashboard";
+          // window.location.href="./dashboard";
+          // router.go('/dashboard');
+          this.goToDashboard();
         })
         .catch(e => {
           this.errors.push(e)
