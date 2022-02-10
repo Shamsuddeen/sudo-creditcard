@@ -17,9 +17,9 @@ const {
 // user routes
 router
     .route('/')
-    .get(protect, authorize('admin'), advancedResults(User), getUsers)
+    .post(protect, authorize('admin'), advancedResults(User), getUsers)
 router
     .route('/:id')
-    .get(protect, getUser)
+    .post(protect, getUser)
     .put(protect, authorize('admin'), updateUser);
 module.exports = router;

@@ -20,15 +20,15 @@ const {
 // user routes
 router
     .route('/')
-    .get(protect, authorize('admin'), advancedResults(Card), getCards)
+    .post(protect, authorize('admin'), advancedResults(Card), getCards)
     .post(protect, authorize('admin'), createCard);
 router
     .route('/:id')
-    .get(protect, authorize('admin'), getCard)
+    .post(protect, authorize('admin'), getCard)
     .put(protect, authorize('admin'), updateCard);
 router
     .route('/user/:user')
-    .get(protect, authorize('admin'), getUserCard);
+    .post(protect, authorize('admin'), getUserCard);
 router
     .route('/simulate/:id')
     .post(protect, authorize('admin'), simulateTransaction);

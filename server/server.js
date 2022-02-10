@@ -4,7 +4,6 @@ const bodyParser    = require('body-parser');
 const mongoose      = require('mongoose');
 const cors          = require('cors');
 const morgan        = require('morgan');
-const path = require('path');
 const cookieParser = require('cookie-parser');
 const errorHandler  = require('./Middleware/error');
 
@@ -34,24 +33,19 @@ app.use(cookieParser());
 app.use(cors());
 
 var port = process.env.PORT || 5000;
+// app.get('/', (req, res) => res.send('Hello from Bitako.Cards'));
 
 // Development logging
 if(process.env.NODE_ENV === 'development'){
-    app.get('/', (req, res) => res.send('Hello from Bitako.Cards'));
     app.use(morgan('dev'));
 }
 
 // Production
-if(process.env.NODE_ENV === 'production'){
-    // serve static assets normally
-    app.use(express.static(__dirname + '/public'));
-
-    // handle every other route with index.html, which will contain
-    // a script tag to your application's JavaScript file(s).
-    app.get('*', function (request, response) {
-      response.sendFile(path.resolve(__dirname, 'index.html'));
-    });
-}
+// if(process.env.NODE_ENV === 'production'){
+    app.use(express.static(__dirname + '/public/'));
+    // handle spa
+    app.get(/.*/, (req, res) => res.sendFile(__dirname + '/public/index.html'));
+// }
 
 // Mount API routes in the App
 app.use('/api/auth', auth);

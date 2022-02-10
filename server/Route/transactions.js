@@ -18,13 +18,13 @@ const {
 // user routes
 router
     .route('/')
-    .get(protect, authorize('admin'), advancedResults(Transaction), getTransactions);
+    .post(protect, authorize('admin'), advancedResults(Transaction), getTransactions);
 router
     .route('/:id')
-    .get(protect, authorize('admin'), getTransaction)
+    .post(protect, authorize('admin'), getTransaction)
     .put(protect, authorize('admin'), updateTransaction);
 router
     .route('/user/:user')
-    .get(protect, authorize('admin'), getUserTransaction);
+    .post(protect, authorize('admin'), getUserTransaction);
 
 module.exports = router;
