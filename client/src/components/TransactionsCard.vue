@@ -50,7 +50,7 @@
                     this.errors.push(e)
                 })
 
-            await HTTP.get(`/transactions/user/` + this.user._id)
+            await HTTP.post(`/transactions/user/` + this.user._id)
                 .then(response => {
                     // console.log(response.data.data);
                     this.items = response.data.data;

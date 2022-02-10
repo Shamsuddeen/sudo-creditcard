@@ -67,7 +67,7 @@
                 this.errors.push(e)
             })
 
-            await HTTP.get(`/cards/user/`+this.user._id)
+            await HTTP.post(`/cards/user/`+this.user._id)
             .then(response => {
                 console.log(response.data);
                 this.card = response.data.data;
