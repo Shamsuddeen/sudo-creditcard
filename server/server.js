@@ -32,7 +32,7 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(cors());
 
-var port = 5000;
+var port = process.env.PORT || 5000;
 // app.get('/', (req, res) => res.send('Hello from Bitako.Cards'));
 
 // Development logging
