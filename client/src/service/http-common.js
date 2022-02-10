@@ -5,7 +5,7 @@ export const HTTP = axios.create({
   baseURL: `/api`,
   headers: {
     Authorization:
-      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjIwMDBkNjI3YjIwM2UyYWY4NGYwYjBiIiwiaWF0IjoxNjQ0MTcwNTk0fQ.pyWOVV720lPpoZEubc1PvixoLAzyXxzyL1oGmRq841U",
+      "Bearer "+process.env.AUTH_KEY,
   },
 });
 
