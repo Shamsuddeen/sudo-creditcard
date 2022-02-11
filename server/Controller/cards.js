@@ -34,10 +34,11 @@ exports.simulateTransaction = asyncHandler(async (req, res, next) => {
         return next(new ErrorResponse("Card not found!", 404));
     }
 
-    const simulate = await sendRequest('/cards/' + card.cardId + '/simulate/authorization', 'post', {
+    const simulate = await sendRequest('/cards/simulator/authorization', 'post', {
         channel: req.body.channel,
         type: req.body.type,
         amount: req.body.amount,
+        cardId: card.cardId,
         currency: "NGN",
         merchant: {
             category: "7399",

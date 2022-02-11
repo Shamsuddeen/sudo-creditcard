@@ -14,6 +14,6 @@ const {
 // webhook routes
 router
     .route('/card-authorization')
-    .post(protect, authorize('admin'), cardAuthorization);
+    .post(protect, cardAuthorization);
 
 module.exports = router;
