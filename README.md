@@ -38,3 +38,7 @@ Any other files remain as vue's structure
 ```
 npm run dev
 ```
+
+I will continue to improve this documentation.
+
+If you need help setting up this project [reach out to me on twitter](https://twitter.com/omacys_)
