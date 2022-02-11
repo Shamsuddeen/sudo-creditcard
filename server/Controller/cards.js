@@ -124,6 +124,7 @@ exports.createCard = asyncHandler(async (req, res, next) => {
         currency: "NGN",
         status: "active",
         brand: "Verve",
+        fundingSourceId: "6206776859a4165e9ed503c4",
         metadata: {},
         spendingControls: {
             channels: {
