@@ -6,14 +6,14 @@ const {
 
 const router = express.Router({ mergeParams: true });
 
-const {
-    protect,
-    authorize
-} = require('../Middleware/auth');
+// const {
+//     protect,
+//     authorize
+// } = require('../Middleware/auth');
 
 // webhook routes
 router
     .route('/card-authorization')
-    .post(protect, cardAuthorization);
+    .post(cardAuthorization);
 
 module.exports = router;
