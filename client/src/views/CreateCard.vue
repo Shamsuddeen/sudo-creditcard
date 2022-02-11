@@ -2,6 +2,9 @@
   <div class="about">
     <DashboardCard />
     <h1>Please wait while we create your Credit Card</h1>
+    <div v-if="card && card.length">
+      <router-link :to="{ name: 'dashboard' }">Dashboard</router-link> |
+    </div>
   </div>
 </template>
 <script>
@@ -33,9 +36,9 @@ export default {
         // console.log(response.data);
         this.card = response.data.data;
         // window.location.href="./dashboard";
-        if(this.card !== []){
-          this.$router.push("/dashboard");
-        }
+        // if(this.card !== []){
+        //   this.$router.push("/dashboard");
+        // }
       })
       .catch((e) => {
         this.errors.push(e);
