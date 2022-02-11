@@ -9,7 +9,7 @@ exports.cardAuthorization = asyncHandler(async (req, res, next) => {
     console.log(req.body);
     console.log('====================================');
     const card = await Card.findOne({
-        cardId: req.body.data.card._id
+        cardId: req.body.data.object.card._id
     });
 
     if (!card._id) {
@@ -19,8 +19,8 @@ exports.cardAuthorization = asyncHandler(async (req, res, next) => {
     // console.log(req.body.data);
     // console.log('====================================');
     if (req.body.type == "authorization.request") {
-        const amount = req.body.data.amount;
-        const channel = req.body.data.transactionMetadata.channel;
+        const amount = req.body.data.object.amount;
+        const channel = req.body.data.object.transactionMetadata.channel;
         const totalCredit = card.usedCredit + amount;
         /*
          Check if the card status
@@ -47,7 +47,7 @@ exports.cardAuthorization = asyncHandler(async (req, res, next) => {
                             cardId: card.cardId,
                             cardPan: card.pan,
                             amount: amount,
-                            channel: channel+" "+req.body.data.transactionMetadata.type+" @ "+req.body.data.merchant.name
+                            channel: channel+" "+req.body.data.object.transactionMetadata.type+" @ "+req.body.data.object.merchant.name
                         });
 
                         res.json({
