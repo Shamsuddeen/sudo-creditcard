@@ -19,7 +19,7 @@ exports.cardAuthorization = asyncHandler(async (req, res, next) => {
     // console.log(req.body.data);
     // console.log('====================================');
     if (req.body.type == "authorization.request") {
-        const amount = req.body.data.object.amount;
+        const amount = req.body.data.object.merchantAmount;
         const channel = req.body.data.object.transactionMetadata.channel;
         const totalCredit = card.usedCredit + amount;
         /*
