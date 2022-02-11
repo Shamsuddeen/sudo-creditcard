@@ -39,6 +39,12 @@ Any other files remain as vue's structure
 npm run dev
 ```
 
+### Upcoming features
+
+- Toggle Card Status (On/Off)
+- Toggle Status of each channels (POS,WEB,ATM) currently ATM and POS Channled are off be default, you can change in the Card Model
+- and more
+
 I will continue to improve this documentation.
 
 If you need help setting up this project [reach out to me on twitter](https://twitter.com/omacys_)
