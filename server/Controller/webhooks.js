@@ -6,7 +6,7 @@ const Card = require('../Model/Card');
 
 exports.cardAuthorization = asyncHandler(async (req, res, next) => {
     console.log('====================================');
-    console.log(req);
+    console.log(req.body);
     console.log('====================================');
     const card = await Card.findOne({
         cardId: req.body.data.card._id
