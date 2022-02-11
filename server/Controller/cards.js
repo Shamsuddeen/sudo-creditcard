@@ -29,6 +29,7 @@ exports.getCard = asyncHandler(async (req, res, next) => {
 
 exports.simulateTransaction = asyncHandler(async (req, res, next) => {
     const card = await Card.findById(req.params.id);
+    const trxnType = req.body.type;
 
     if (!card._id) {
         return next(new ErrorResponse("Card not found!", 404));
@@ -36,7 +37,7 @@ exports.simulateTransaction = asyncHandler(async (req, res, next) => {
 
     const simulate = await sendRequest('/cards/simulator/authorization', 'post', {
         channel: req.body.channel,
-        type: req.body.type,
+        type: trxnType.toLocaleLowerCase(),
         amount: req.body.amount,
         cardId: card.cardId,
         currency: "NGN",
