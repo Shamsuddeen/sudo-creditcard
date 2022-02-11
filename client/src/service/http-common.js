@@ -4,7 +4,7 @@ import NProgress from "nprogress";
 export const HTTP = axios.create({
   baseURL: `/api`,
   headers: {
-    Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjIwMWNlZWQ1MDUxOGMzN2Q5ZmMyNzgzIiwiaWF0IjoxNjQ0MjkwNjA5fQ.MNViG65d1mtCNvKIjw_8gx7mAA7dAOzJlgrEAVJ9by4",
+    Authorization: "Bearer " + process.env.AUTH_KEY,
   },
 });
 
