@@ -38,7 +38,7 @@ exports.simulateTransaction = asyncHandler(async (req, res, next) => {
     const simulate = await sendRequest('/cards/simulator/authorization', 'post', {
         channel: req.body.channel,
         type: trxnType.toLocaleLowerCase(),
-        amount: req.body.amount,
+        amount: parseInt(req.body.amount),
         cardId: card.cardId,
         currency: "NGN",
         merchant: {
