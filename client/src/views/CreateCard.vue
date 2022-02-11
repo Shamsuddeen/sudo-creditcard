@@ -3,7 +3,7 @@
     <DashboardCard />
     <h1>Please wait while we create your Credit Card</h1>
     <div v-if="card && card.length">
-      <router-link :to="{ name: 'dashboard' }">Dashboard</router-link> |
+      <router-link class="btn btn-primary" :to="'/dashboard'">Dashboard</router-link>
     </div>
   </div>
 </template>
