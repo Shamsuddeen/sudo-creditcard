@@ -102,6 +102,7 @@ export default {
       HTTP.post(`/cards/simulate/` + this.userCard._id, this.form)
         .then((response) => {
           this.simulate = response.data.data;
+          alert(response.data.data.message)
         })
         .catch((e) => {
           this.errors.push(e);

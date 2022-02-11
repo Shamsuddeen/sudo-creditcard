@@ -2,8 +2,13 @@
   <div class="about">
     <DashboardCard />
     <h1>Please wait while we create your Credit Card</h1>
-    <div v-if="card && card.length">
-      <router-link class="btn btn-primary" :to="'/dashboard'">Dashboard</router-link>
+    <div v-if="errors && errors.length">
+      <li v-for="error of errors" :key="error">
+        {{ error.message }}
+      </li>
+    </div>
+    <div v-else-if="card && card.length">
+      <router-link class="btn btn-primary" :to="'/dashboard'">Go to Dashboard</router-link>
     </div>
   </div>
 </template>
