@@ -33,7 +33,9 @@ export default {
         // console.log(response.data);
         this.card = response.data.data;
         // window.location.href="./dashboard";
-        this.$router.push("/dashboard");
+        if(this.card !== []){
+          this.$router.push("/dashboard");
+        }
       })
       .catch((e) => {
         this.errors.push(e);
