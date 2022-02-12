@@ -20,7 +20,7 @@ const {
 // user routes
 router
     .route('/')
-    .post(protect, authorize('admin'), advancedResults(Card), getCards)
+    // .post(protect, authorize('admin'), advancedResults(Card), getCards)
     .post(protect, authorize('admin'), createCard);
 router
     .route('/:id')
