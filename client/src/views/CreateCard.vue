@@ -7,7 +7,7 @@
         {{ error.message }}
       </li>
     </div>
-    <div v-else-if="card && card.length">
+    <div v-else-if="card && card.pan">
       <router-link class="btn btn-primary" :to="'/dashboard'">Go to Dashboard</router-link>
     </div>
   </div>
@@ -42,7 +42,7 @@ export default {
         this.card = response.data.data;
         // window.location.href="./dashboard";
         // if(this.card !== []){
-        //   this.$router.push("/dashboard");
+          this.$router.push("/dashboard");
         // }
       })
       .catch((e) => {

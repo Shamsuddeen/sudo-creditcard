@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-card-group deck>
-      <div v-if="card && card.length">
+      <div v-if="card && card.pan">
         <b-card header-tag="header" footer-tag="footer">
           <template #header>
             <h6 class="mb-0">{{ card.brand }}</h6>
