@@ -118,7 +118,7 @@ exports.createCard = asyncHandler(async (req, res, next) => {
     console.log(update);
     console.log('====================================');
 
-    // Map Card to Customer
+    // Map Card to Customer without funding source
     const card = await sendRequest('/cards', 'post', {
         customerId: update.data._id,
         type: "virtual",
@@ -126,7 +126,7 @@ exports.createCard = asyncHandler(async (req, res, next) => {
         currency: "NGN",
         status: "active",
         brand: "Verve",
-        fundingSourceId: "6206e7fe1c74879fec2b23df",
+        // fundingSourceId: "6206e7fe1c74879fec2b23df",
         metadata: {},
         spendingControls: {
             channels: {
@@ -147,7 +147,15 @@ exports.createCard = asyncHandler(async (req, res, next) => {
     if (card.statusCode != 200) {
         return next(new ErrorResponse("Request Error, Unable to create card", 400));
     }
-
+    // Map funding  to card
+    const fundingSource = await sendRequest('/cards/'+card.data._id, 'put', {
+        status: "active",
+        fundingSourceId: "6206e7fe1c74879fec2b23df"
+    });
+    console.log(fundingSource);
+    if (card.statusCode != 200) {
+        return next(new ErrorResponse("Request Error, Unable to map funding source card", 400));
+    }
     // Save Card to DB
     const result = await Card.create({
         user: req.body.user,
